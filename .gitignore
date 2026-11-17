@@ -1,0 +1,13 @@
+# Compiled programs
+*.exe
+*.o
+*.out
+a.out
+
+# Files created when the programs run
+students.csv
+expenses.csv
+
+# Editor / tool folders
+.vscode/
+.idea/
