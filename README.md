@@ -1,6 +1,6 @@
 # OOPS Practicals in C++
 
-C++ programs for the Object Oriented Programming practicals, plus a mini project (Expense Tracker).
+C++ programs for the Object Oriented Programming practicals, plus a mini project (Hotel Room Booking System).
 Each folder has the source code and a `README.md` with the aim, concepts used, how to run it, and the output.
 
 ## List of Experiments
@@ -17,7 +17,7 @@ Each folder has the source code and a `README.md` with the aim, concepts used, h
 | 8 | STL containers and algorithms on a student marks dataset | [Experiment-08_STL](Experiment-08_STL) |
 | 9 | Custom exception hierarchy for banking transactions | [Experiment-09_Exception_Handling](Experiment-09_Exception_Handling) |
 | 10 | CSV file reader/writer with fstream and file pointers | [Experiment-10_File_Handling](Experiment-10_File_Handling) |
-| 11 | Mini Project: Expense Tracker | [Mini-Project_Expense_Tracker](Mini-Project_Expense_Tracker) |
+| 11 | Mini Project: Hotel Room Booking System | [Mini-Project_Hotel_Booking](Mini-Project_Hotel_Booking) |
 
 ## How to Compile and Run Any Program
 
