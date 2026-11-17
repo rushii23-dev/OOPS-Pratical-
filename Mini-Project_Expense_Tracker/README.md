@@ -1,113 +1,90 @@
 # Mini Project : Expense Tracker
 
-A menu-driven Expense Tracker written in C++. You can add your daily expenses, see them, find the total spent in each category, search, sort, delete, and get a summary. All expenses are saved in a file (`expenses.csv`), so the data is still there the next time you run the program.
+A simple menu-driven Expense Tracker in C++. You can add expenses, view them, see the total for each category, sort them, delete them and see a summary. All expenses are saved in `expenses.csv`, so they are still there when you run the program again.
 
 ## Features
 
-1. Add an expense (date, category, description, amount)
-2. View all expenses in a table
-3. See total spending for each category
-4. Search expenses by category
-5. Sort expenses by amount (highest first)
-6. Delete an expense using its ID
-7. Summary: number of expenses, total, average and highest expense
-8. Data is saved to and loaded from `expenses.csv` automatically
+1. Add an expense (date, category, amount, note)
+2. View all expenses
+3. Total spent in each category
+4. Sort expenses by amount
+5. Delete an expense by ID
+6. Summary (count, total, average, highest)
 
-## Syllabus Concepts Used
+## Concepts Used
 
-| Concept | Where it is used |
+| Concept | Where |
 |---|---|
-| Classes, objects, access specifiers | `Expense`, `ExpenseTracker` classes |
-| Constructors (overloaded) | `Expense` has two constructors |
-| Static data member | `Expense::nextId` gives every expense a unique ID |
-| Inheritance and abstract class | `Report` (abstract) -> `CategoryReport`, `SummaryReport` |
-| Runtime polymorphism (virtual functions) | `showReport(Report &report)` calls `generate()` |
-| Operator overloading | `<<` overloaded to print an `Expense` |
-| Friend function | `operator<<` is a friend of `Expense` |
-| Function template | `findMax()` finds the highest amount |
-| STL containers | `vector<Expense>`, `map<string, double>` |
-| STL algorithms and lambdas | `sort`, `find_if`, `accumulate` |
-| Custom exception | `InvalidInputException` for wrong input |
-| try / catch / throw | Adding and deleting expenses |
-| File handling | `ofstream` / `ifstream` with `ios::out` and `ios::in` |
+| Class and object | `ExpenseTracker` |
+| Structure | `Expense` |
+| Constructor | `ExpenseTracker()` loads saved data |
+| Access specifiers | `list` and `nextId` are private |
+| Custom exception | `InvalidInput` (child of `exception`) |
+| try / catch / throw | Wrong amount, wrong ID |
+| vector | Stores all expenses |
+| map | Category totals |
+| sort, find_if, lambda | Sort by amount, find expense to delete |
+| File handling | `ofstream` to save, `ifstream` to load |
+| stringstream | Splitting a CSV line |
 
-## How to Compile and Run
+## How to Run
 
 ```bash
 g++ -std=c++17 expense_tracker.cpp -o expense_tracker
 ./expense_tracker
 ```
 
-## Sample Run
+## Sample Output
 
 ```
-========== EXPENSE TRACKER ==========
+----- Expense Tracker -----
 1. Add Expense
-2. View All Expenses
-3. Spending by Category
-4. Search by Category
-5. Sort by Amount
-6. Delete Expense
-7. Summary
+2. View Expenses
+3. Category Total
+4. Sort by Amount
+5. Delete Expense
+6. Summary
 0. Exit
-=====================================
-Enter your choice : 1
-Enter date (DD-MM-YYYY) : 10-11-2026
-Enter category (Food/Travel/Shopping/Bills/Other) : Food
-Enter description : Lunch at canteen
-Enter amount : 120
-Expense added with ID 1
+Enter choice: 1
+Date (DD-MM-YYYY): 10-11-2026
+Category: Food
+Amount: 120
+Note: Lunch at canteen
+Expense added
 
-Enter your choice : 1
-Enter date (DD-MM-YYYY) : 12-11-2026
-Enter category (Food/Travel/Shopping/Bills/Other) : Shopping
-Enter description : Notebook
-Enter amount : -40
-Error : Amount must be greater than 0
+Enter choice: 1
+Date (DD-MM-YYYY): 12-11-2026
+Category: Shopping
+Amount: -40
+Note: Pen
+Error: Amount must be more than 0
 
-Enter your choice : 2
-ID   Date         Category    Description               Amount
---------------------------------------------------------------
-1    10-11-2026   Food        Lunch at canteen          120.00
-2    11-11-2026   Travel      Bus pass                  500.00
-3    12-11-2026   Food        Dinner                    250.00
+Enter choice: 2
+ID	Date		Category	Amount	Note
+1	10-11-2026	Food		120	Lunch at canteen
+2	11-11-2026	Travel		500	Bus pass
+3	12-11-2026	Food		250	Dinner with friends
 
-Enter your choice : 3
+Enter choice: 3
+Food : 370
+Travel : 500
 
------- Spending by Category ------
-Food           Rs. 370.00
-Travel         Rs. 500.00
+Enter choice: 4
+ID	Date		Category	Amount	Note
+2	11-11-2026	Travel		500	Bus pass
+3	12-11-2026	Food		250	Dinner with friends
+1	10-11-2026	Food		120	Lunch at canteen
 
-Enter your choice : 4
-Enter category to search : Food
-ID   Date         Category    Description               Amount
---------------------------------------------------------------
-1    10-11-2026   Food        Lunch at canteen          120.00
-3    12-11-2026   Food        Dinner                    250.00
-Total for Food : Rs. 370.00
+Enter choice: 5
+Enter ID to delete: 2
+Expense deleted
 
-Enter your choice : 5
-Expenses sorted by amount (highest first):
-ID   Date         Category    Description               Amount
---------------------------------------------------------------
-2    11-11-2026   Travel      Bus pass                  500.00
-3    12-11-2026   Food        Dinner                    250.00
-1    10-11-2026   Food        Lunch at canteen          120.00
+Enter choice: 6
+Number of expenses: 2
+Total spent: 370
+Average: 185
+Highest: 250
 
-Enter your choice : 6
-Enter expense ID to delete : 2
-Expense with ID 2 deleted.
-
-Enter your choice : 7
-
------- Summary ------
-Number of expenses : 2
-Total spent        : Rs. 370.00
-Average expense    : Rs. 185.00
-Highest expense    : Rs. 250.00
-
-Enter your choice : 0
-Data saved in expenses.csv. Goodbye!
+Enter choice: 0
+Goodbye
 ```
-
-(The menu is printed before every choice; it is shown only once above to keep it short.)

@@ -1,147 +1,70 @@
-/*
- * Experiment 7 : Generic Stack using Templates
- *                Tested with int, float and std::string
- *
- * Concepts used:
- *   - Class template  : template <typename T> class Stack
- *   - Function template : template <typename T> void showTop(...)
- *   - Same code works for many data types (generic programming)
- *   - Stack : LIFO (Last In First Out)
- */
-
 #include <iostream>
 #include <string>
 using namespace std;
 
-const int MAX_SIZE = 5;
-
 template <typename T>
-class Stack
-{
+class Stack {
 private:
-    T items[MAX_SIZE];
+    T arr[5];
     int top;
-
 public:
-    Stack()
-    {
-        top = -1;     // -1 means the stack is empty
+    Stack() {
+        top = -1;
     }
 
-    bool isEmpty()
-    {
-        return top == -1;
-    }
-
-    bool isFull()
-    {
-        return top == MAX_SIZE - 1;
-    }
-
-    void push(T value)
-    {
-        if (isFull())
-        {
-            cout << "Stack Overflow! Cannot push " << value << endl;
+    void push(T x) {
+        if (top == 4) {
+            cout << "Stack is full" << endl;
             return;
         }
         top++;
-        items[top] = value;
-        cout << "Pushed : " << value << endl;
+        arr[top] = x;
     }
 
-    T pop()
-    {
-        if (isEmpty())
-        {
-            cout << "Stack Underflow! Nothing to pop" << endl;
-            return T();     // return a default value
-        }
-        T value = items[top];
-        top--;
-        return value;
-    }
-
-    T peek()
-    {
-        if (isEmpty())
-        {
+    T pop() {
+        if (top == -1) {
+            cout << "Stack is empty" << endl;
             return T();
         }
-        return items[top];
+        T x = arr[top];
+        top--;
+        return x;
     }
 
-    int size()
-    {
-        return top + 1;
-    }
-
-    void display()
-    {
-        if (isEmpty())
-        {
-            cout << "Stack is empty" << endl;
-            return;
-        }
-        cout << "Stack (top to bottom) : ";
+    void display() {
         for (int i = top; i >= 0; i--)
-        {
-            cout << items[i] << " ";
-        }
+            cout << arr[i] << " ";
         cout << endl;
     }
 };
 
-// Function template
-template <typename T>
-void showTop(Stack<T> &s)
-{
-    cout << "Top element : " << s.peek() << ", Size : " << s.size() << endl;
-}
+int main() {
+    Stack<int> s1;
+    s1.push(10);
+    s1.push(20);
+    s1.push(30);
+    cout << "Int stack: ";
+    s1.display();
+    cout << "Popped: " << s1.pop() << endl;
 
-int main()
-{
-    cout << "===== Stack of int =====" << endl;
-    Stack<int> intStack;
-    intStack.push(10);
-    intStack.push(20);
-    intStack.push(30);
-    intStack.display();
-    showTop(intStack);
-    cout << "Popped : " << intStack.pop() << endl;
-    intStack.display();
+    Stack<float> s2;
+    s2.push(1.5);
+    s2.push(2.5);
+    cout << "\nFloat stack: ";
+    s2.display();
+    cout << "Popped: " << s2.pop() << endl;
 
-    cout << "\n===== Stack of float =====" << endl;
-    Stack<float> floatStack;
-    floatStack.push(1.5f);
-    floatStack.push(2.75f);
-    floatStack.push(3.25f);
-    floatStack.display();
-    showTop(floatStack);
-    cout << "Popped : " << floatStack.pop() << endl;
-    floatStack.display();
+    Stack<string> s3;
+    s3.push("C++");
+    s3.push("Java");
+    s3.push("Python");
+    cout << "\nString stack: ";
+    s3.display();
+    cout << "Popped: " << s3.pop() << endl;
 
-    cout << "\n===== Stack of string =====" << endl;
-    Stack<string> stringStack;
-    stringStack.push("C++");
-    stringStack.push("Java");
-    stringStack.push("Python");
-    stringStack.display();
-    showTop(stringStack);
-    cout << "Popped : " << stringStack.pop() << endl;
-    stringStack.display();
-
-    cout << "\n===== Overflow and Underflow Test =====" << endl;
-    Stack<int> testStack;
-    for (int i = 1; i <= 6; i++)    // 6th push will overflow
-    {
-        testStack.push(i * 100);
-    }
-    while (!testStack.isEmpty())
-    {
-        cout << "Popped : " << testStack.pop() << endl;
-    }
-    testStack.pop();                // underflow
-
+    cout << "\nOverflow test" << endl;
+    Stack<int> s4;
+    for (int i = 1; i <= 6; i++)
+        s4.push(i);
     return 0;
 }
